@@ -9,12 +9,16 @@ def home_page(request):
     context = {
         'products':products
     }
-    return render(request, 'home.html', context)
+    return render(request, 'index.html', context)
 
-def categories(request):
-    categories = CategoryProduct.objects.all()
+def categories_page(request, pk):
+    all_categories = CategoryProduct.objects.all()
+    categories = CategoryProduct.objects.get(id=pk)
+    products = Product.objects.filter(product_category = categories).all()
     context = {
-        'categories': categories
+        'all_categories':all_categories,
+        'categories': categories,
+        'products': products
     }
     return render(request, "categories.html", context)
 
